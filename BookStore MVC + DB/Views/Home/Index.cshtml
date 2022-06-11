@@ -1,0 +1,86 @@
+﻿@model BookShowView
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1>Books</h1>
+</div>
+<div>
+    <h2>All Books:</h2>
+    <ul>
+        @foreach (Book book in Model.AllBooks)
+        {
+            <li>ID:@book.Id Name:@book.Name Pages:@book.Pages Price:@book.Price$ Stock:@book.Stock</li>
+        }
+    </ul>
+    <form asp-action="Index" method="get">
+        <h2>Find Book by Id:</h2>
+        <input type="number" asp-for="@Model.FindBookId" />
+        @if (Model.BookById != null)
+        {
+            <p>Found book: @Model.BookById.Id @Model.BookById.Name @Model.BookById.Pages @Model.BookById.Price$ @Model.BookById.Stock</p>
+        }
+        <h2>Add Book:</h2>
+        <label asp-for="@Model.NewBook.Name"></label>
+        <input type="text" asp-for="@Model.NewBook.Name" />
+        <label asp-for="@Model.NewBook.Pages"></label>
+        <input type="text" asp-for="@Model.NewBook.Pages" />
+        <label asp-for="@Model.NewBook.Price"></label>
+        <input type="number" asp-for="@Model.NewBook.Price" min="0" step="0.01" />
+        <label asp-for="@Model.NewBook.Stock"></label>
+        <input type="number" asp-for="@Model.NewBook.Stock" />
+        <h2>Delete Book:</h2>
+        <label>Id:</label>
+        <input type="number" min="1" step="1" asp-for="@Model.DeleteBookId" />
+        <h2>Edit Book:</h2>
+        <label asp-for="@Model.EditBook.Id"></label>
+        <input type="number" asp-for="@Model.EditBook.Id" />
+        <label asp-for="@Model.EditBook.Name"></label>
+        <input type="text" asp-for="@Model.EditBook.Name" />
+        <label asp-for="@Model.EditBook.Pages"></label>
+        <input type="text" asp-for="@Model.EditBook.Pages" />
+        <label asp-for="@Model.EditBook.Price"></label>
+        <input type="number" asp-for="@Model.EditBook.Price" min="0" step="0.01" />
+        <label asp-for="@Model.EditBook.Stock"></label>
+        <input type="number" asp-for="@Model.EditBook.Stock" />
+        <h2>Book's Authors by Id:</h2>
+        <input type="number" asp-for="@Model.BookAuthorsId" />
+        @if (Model.BookAuthorsById?.Count() > 0)
+        {
+            <p>Found Authors:</p>
+            <ul>
+                @foreach (Author author in Model.BookAuthorsById)
+                {
+                <li>IDBook:@Model.BookAuthorsId Author: Id:@author.Id FirstName:@author.FirstName LastName:@author.LastName Birthday:@author.Birthdate</li>
+                }
+            </ul>
+        }
+        <h2>Binding Author:</h2>
+        <label>Id Book:</label>
+        <input type="number" min="1" step="1" asp-for="@Model.IdBookBind" />
+        <label>Id Author:</label>
+        <input type="number" min="1" step="1" asp-for="@Model.IdAuthorBind" />
+        <br />
+        @*asdasdasd*@
+        <h2>Book's Genres by Id:</h2>
+        <input type="number" asp-for="@Model.BookGenresId" />
+        @if (Model.BookGenresById?.Count() > 0)
+        {
+            <p>Found Genres:</p>
+            <ul>
+                @foreach (Genre genre in Model.BookGenresById)
+                {
+                <li>IDBook:@Model.BookGenresId Genre: Id:@genre.Id Name:@genre.Name</li>
+                }
+            </ul>
+        }
+        <h2>Binding Genre:</h2>
+        <label>Id Book:</label>
+        <input type="number" min="1" step="1" asp-for="@Model.IdBookGenreBind" />
+        <label>Id Genre:</label>
+        <input type="number" min="1" step="1" asp-for="@Model.IdGenreBind" />
+        <br />
+        <button type="submit">Submit</button>
+    </form>
+</div>

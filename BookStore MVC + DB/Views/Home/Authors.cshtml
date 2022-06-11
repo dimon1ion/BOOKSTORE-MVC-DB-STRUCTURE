@@ -1,0 +1,80 @@
+﻿@model AuthorShowView
+@{
+    ViewData["Title"] = "Authors";
+}
+
+<div class="text-center">
+    <h1>Authors</h1>
+</div>
+<div>
+    <h2>All Authors:</h2>
+    <ul>
+        @foreach (Author author in Model.AllAuthors)
+        {
+            <li> ID:@author.Id FirstName:@author.FirstName LastName:@author.LastName Birthday:@author.Birthdate </li>
+        }
+    </ul>
+    <form asp-action="Authors" method="get">
+        <h2>Find Author by Id:</h2>
+        <input type="number" asp-for="@Model.FindAuthorId" required />
+        @if (Model.AuthorById != null)
+        {
+            <p>Found genre: @Model.AuthorById.Id @Model.AuthorById.FirstName @Model.AuthorById.LastName @Model.AuthorById.Birthdate</p>
+        }
+        <button type="submit">Submit</button>
+    </form>
+    <form asp-action="Authors" method="get">
+        <h2>Add Author:</h2>
+        <label asp-for="@Model.NewAuthor.FirstName"></label>
+        <input type="text" asp-for="@Model.NewAuthor.FirstName" required />
+        <label asp-for="@Model.NewAuthor.LastName"></label>
+        <input type="text" asp-for="@Model.NewAuthor.LastName" required />
+        <label asp-for="@Model.NewAuthor.Birthdate"></label>
+        <input type="date" asp-for="@Model.NewAuthor.Birthdate" required />
+        <button type="submit">Submit</button>
+    </form>
+    <form asp-action="Authors" method="get">
+        <h2>Delete Author:</h2>
+        <label>Id:</label>
+        <input type="number" min="1" step="1" asp-for="@Model.DeleteAuthorId" required />
+        <button type="submit">Submit</button>
+    </form>
+    <form asp-action="Authors" method="get">
+
+        <h2>Edit Author:</h2>
+        <label asp-for="@Model.EditAuthor.Id"></label>
+        <input type="number" asp-for="@Model.EditAuthor.Id" required />
+        <label asp-for="@Model.EditAuthor.FirstName"></label>
+        <input type="text" asp-for="@Model.EditAuthor.FirstName" required />
+        <label asp-for="@Model.EditAuthor.LastName"></label>
+        <input type="text" asp-for="@Model.EditAuthor.LastName" required />
+        <label asp-for="@Model.EditAuthor.Birthdate"></label>
+        <input type="date" asp-for="@Model.EditAuthor.Birthdate" required />
+        <button type="submit">Submit</button>
+    </form>
+    <form asp-action="Authors" method="get">
+        <h2>Author's Books by Id:</h2>
+        <input type="number" asp-for="@Model.AuthorBooksId" required />
+        @if (Model.AuthorBooksById?.Count() > 0)
+        {
+            <p>Found Authors:</p>
+            <ul>
+                @foreach (Book book in Model.AuthorBooksById)
+                {
+                    <li>IDAuthor:@Model.AuthorBooksId Book: Id:@book.Id Name:@book.Name Pages:@book.Pages Stock:@book.Stock Price: @book.Price$</li>
+                }
+            </ul>
+        }
+        <button type="submit">Submit</button>
+    </form>
+    <form asp-action="Authors" method="get">
+        <h2>Binding Book:</h2>
+        <label>Id Author:</label>
+        <input type="number" min="1" step="1" asp-for="@Model.IdAuthorBind" required />
+        <label>Id Book:</label>
+        <input type="number" min="1" step="1" asp-for="@Model.IdBookBind" required />
+        <br />
+        <button type="submit">Submit</button>
+    </form>
+
+</div>

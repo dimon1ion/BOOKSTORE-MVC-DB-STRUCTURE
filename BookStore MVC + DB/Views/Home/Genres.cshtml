@@ -1,0 +1,72 @@
+﻿@model GenreShowView
+@{
+    ViewData["Title"] = "Genres";
+}
+
+<div class="text-center">
+    <h1>Genres</h1>
+</div>
+<div>
+    <h2>All Genres:</h2>
+    <ul>
+        @foreach (Genre genre in Model.AllGenres)
+        {
+            <li>Id:@genre.Id Genre:@genre.Name</li>
+        }
+    </ul>
+    <form asp-action="Genres" method="get">
+        <h2>Find Genre by Id:</h2>
+        <input type="number" asp-for="@Model.FindGenreId" required />
+        @if (Model.GenreById != null)
+        {
+            <p>Found Author: @Model.GenreById.Id @Model.GenreById.Name</p>
+        }
+        <button type="submit">Submit</button>
+    </form>
+    <form asp-action="Genres" method="get">
+        <h2>Add Genre:</h2>
+        <label asp-for="@Model.NewGenre.Name"></label>
+        <input type="text" asp-for="@Model.NewGenre.Name" required />
+        <button type="submit">Submit</button>
+    </form>
+    <form asp-action="Genres" method="get">
+        <h2>Delete Genre:</h2>
+        <label>Id:</label>
+        <input type="number" min="1" step="1" asp-for="@Model.DeleteGenreId" required />
+        <button type="submit">Submit</button>
+    </form>
+    <form asp-action="Genres" method="get">
+
+        <h2>Edit Genre:</h2>
+        <label asp-for="@Model.EditGenre.Id"></label>
+        <input type="number" asp-for="@Model.EditGenre.Id" required />
+        <label asp-for="@Model.EditGenre.Name"></label>
+        <input type="text" asp-for="@Model.EditGenre.Name" required />
+        <button type="submit">Submit</button>
+    </form>
+    <form asp-action="Genres" method="get">
+        <h2>Genre's Books by Id:</h2>
+        <input type="number" asp-for="@Model.GenreBooksId" required />
+        @if (Model.GenreBooksById?.Count() > 0)
+        {
+            <p>Found Authors:</p>
+            <ul>
+                @foreach (Book book in Model.GenreBooksById)
+                {
+                    <li>IDGenre:@Model.GenreBooksId Book: Id:@book.Id Name:@book.Name Pages:@book.Pages Stock:@book.Stock Price: @book.Price$</li>
+                }
+            </ul>
+        }
+        <button type="submit">Submit</button>
+    </form>
+    <form asp-action="Genres" method="get">
+        <h2>Binding Genre:</h2>
+        <label>Id Genre:</label>
+        <input type="number" min="1" step="1" asp-for="@Model.IdGenreBind" required />
+        <label>Id Book:</label>
+        <input type="number" min="1" step="1" asp-for="@Model.IdBookBind" required />
+        <br />
+        <button type="submit">Submit</button>
+    </form>
+
+</div>
